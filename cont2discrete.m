@@ -3,7 +3,7 @@ function [ A, B ] = cont2discrete( F, G, Ts )
 %space model, F and G with sampling time Ts
 
 A = expm(F*Ts); % calculate Discrete time free response
-B = G*expm(F*Ts)*G; % calculate discrete time forced response
+B = F*expm(F*Ts)*G; % calculate discrete time forced response
 
 
 end
