@@ -41,3 +41,17 @@ N = 64;
 [phi,gamma,lambda] = prediction_matrices(A,B,C,N);
 fprintf('Question 5: %2.1f\n', full(gamma(192,36)));
 
+%question 7: Find 2-norm of Xn after 8s
+Ts = 0.1;
+N = 8/0.1;
+n = 1/0.1;
+X0 = [0;0.1;1;1000];
+Ubar = zeros(N,1);
+Ubar(2*n:6*n-1) = -0.1;
+[A,B] = cont2discrete(Ac,Bc,Ts);
+[phi,gamma,lambda] = prediction_matrices(A,B,C,N);
+Xbar = phi*X0 + gamma*Ubar;
+norm(Xbar(length(Xbar)-3:length(Xbar)))
+
+
+
