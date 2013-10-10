@@ -32,6 +32,12 @@ fprintf('Question 4: %d\n',m);
 Ts = 0.2;
 [A,B] = cont2discrete(Ac,Bc,Ts);
 [phi,gamma,lambda] = prediction_matrices(A,B,C,N);
-%fprintf('Question 5: %2.1f\n', );
-gamma(60,2)
+fprintf('Question 5: %2.1f\n', full(gamma(60,2)));
+
+%question 6: find gamma(192,36) for Ts = 0.1s, N = 64
+Ts = 0.1;
+N = 64;
+[A,B] = cont2discrete(Ac,Bc,Ts);
+[phi,gamma,lambda] = prediction_matrices(A,B,C,N);
+fprintf('Question 5: %2.1f\n', full(gamma(192,36)));
 
