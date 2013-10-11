@@ -30,6 +30,7 @@ fprintf('Question 4: %d\n',m);
 
 %question 5: find gamma(60,2) for Ts = 0.2 and N = 32
 Ts = 0.2;
+N = 32;
 [A,B] = cont2discrete(Ac,Bc,Ts);
 [phi,gamma,lambda] = prediction_matrices(A,B,C,N);
 fprintf('Question 5: %2.1f\n', full(gamma(60,2)));
@@ -39,19 +40,21 @@ Ts = 0.1;
 N = 64;
 [A,B] = cont2discrete(Ac,Bc,Ts);
 [phi,gamma,lambda] = prediction_matrices(A,B,C,N);
-fprintf('Question 5: %2.1f\n', full(gamma(192,36)));
+fprintf('Question 6: %2.1f\n', full(gamma(192,36)));
 
 %question 7: Find 2-norm of Xn after 8s
 Ts = 0.1;
-N = 8/0.1;
-n = 1/0.1;
+N = (8/Ts);
+n = N/8;
 X0 = [0;0.1;1;1000];
 Ubar = zeros(N,1);
-Ubar(2*n:6*n-1) = -0.1;
+Ubar((2*n)+1:(6*n)+1) = -0.1;
 [A,B] = cont2discrete(Ac,Bc,Ts);
 [phi,gamma,lambda] = prediction_matrices(A,B,C,N);
 Xbar = phi*X0 + gamma*Ubar;
-norm(Xbar(length(Xbar)-3:length(Xbar)))
+n = size(A,2);
+norm(Xbar((n*N)-3:(n*N)))
+
 
 
 
