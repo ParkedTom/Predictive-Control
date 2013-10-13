@@ -49,15 +49,20 @@ fprintf('Question 6: %2.1f\n', full(gamma(192,36)));
 %question 7: Find 2-norm of Xn after 8s
 Ts = 0.5;
 N = 16;
+
 X0 = [0;0.1;1;1000];
 %Ubar = [0;0;-0.1;-0.1;-0.1;-0.1;0;0;];
 Ubar = [0;0;0;0;-0.1;-0.1;-0.1;-0.1;-0.1;-0.1;-0.1;-0.1;0;0;0;0];
+%Ubar = zeros(N,1);
+%Ubar((2*n)-1:(6*n)-1) = -0.1;
 %[A,B] = cont2discrete(Ac,Bc,Ts);
 [A,B,C] = cont2discrete(Ac,Bc,Cc,0,Ts);% calculate discrete state space models
 [phi,gamma,lambda] = prediction_matrices(A,B,C,N);
 Xbar = phi*X0 + gamma*Ubar;
 n = size(A,2);
-norm(Xbar((n*N)-3:(n*N)))
+fprintf('Question 7: %2.1f\n', norm(Xbar((n*N)-3:(n*N))));
+
+
 
 
 
