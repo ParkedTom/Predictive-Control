@@ -20,18 +20,34 @@ Cc = [0,1,0,0;0,0,0,1;-128.2,128.2,0,0]; % state-output matrix
 Ts = 0.5; % sampling time.
 
 [A,B,C] = cont2discrete(Ac,Bc,Cc,0,Ts);
-
-[phi,gamma,lambda] = prediction_matrices(A,B,C,N);
-
 Q = eye(3);
 R = 1;
 x0 = [0;0;0;40];
 Sy = [0;0;0];
 Su = 0;
 N = 10;
-
+n = 4;
+Sybar = Sy;
+Subar = Su;
+for i = 2:N
+    Sybar = [Sybar;Sy];
+    Subar = [Subar;Su];
+end 
+   
+[phi,gamma,lambda] = prediction_matrices(A,B,C,N-1);
 Qbar = kron(eye(N),Q);
-Ala = Qbar*lambda*gamma;
+Rbar = kron(eye(N),R);
+
+Ala = [Qbar*[zeros(3,10);lambda*gamma,zeros(27,1)];Rbar];
+bla = [Qbar*Sybar - Qbar*[zeros(3,4);lambda*phi]*x0;Rbar*Subar];
+
 Ala(23,4)
 
-Ubar = LQUbar(Q,R,Sy,Su,phi,gamma,lambda,x0,N)
+Ustar = Ala\bla;
+
+(Ustar*180)/pi
+
+
+
+
+
