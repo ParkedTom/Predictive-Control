@@ -6,7 +6,7 @@ N = 10;
 s = [1;0];
 Sbar = [s;s;s;s;s;s;s;s;s;s];
 
-[phi,gamma,lambda] = prediction_matrices(A,B,C,N);
+[phi,gamma,lambda] = prediction_matrices(A,B,C,N,1);
 
 Ala = lambda*gamma;
 Bla = (Sbar - lambda*phi*x0);
@@ -34,7 +34,7 @@ for i = 2:N
     Subar = [Subar;Su];
 end 
    
-[phi,gamma,lambda] = prediction_matrices(A,B,C,N-1);
+[phi,gamma,lambda] = prediction_matrices(A,B,C,N-1,1);
 Qbar = kron(eye(N),Q);
 Rbar = kron(eye(N),R);
 
@@ -45,7 +45,23 @@ Ala(23,4)
 
 Ustar = Ala\bla;
 
-(Ustar*180)/pi
+ANS1 = (Ustar*180)/pi
+
+
+[phi,gamma,lambda] = prediction_matrices(A,B,C,N,0);
+Qbar = kron(eye(N),Q);
+Rbar = kron(eye(N),R);
+
+Ala = [Qbar*lambda*gamma;Rbar];
+bla = [Qbar*Sybar - Qbar*lambda*phi*x0;Rbar*Subar];
+
+Ala(23,4)
+
+Ustar = Ala\bla;
+
+ANS2 = (Ustar*180)/pi
+
+ANS1 - ANS2
 
 
 
